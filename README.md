@@ -16,29 +16,6 @@ SapFruitNet is a density-regression-based deep learning framework developed for 
 * Visualization of predicted and ground-truth density maps.
 * Reproducible training and evaluation scripts.
 
-## Recommended Repository Structure
-
-```text
-SapFruitNet/
-├── sapfruitnet/
-│   ├── models/                 # Network architectures and model components
-│   ├── losses/                 # Loss functions
-│   └── utils/                  # Common utilities
-├── data\_processing/
-│   ├── preprocessing/          # Dataset preprocessing scripts
-│   └── density\_maps/           # Density-map generation utilities
-├── scripts/
-│   ├── train.py                # Model training
-│   ├── test.py                 # Model evaluation / patch-based inference
-│   └── visualize\_density.py    # Density-map visualization
-├── checkpoints/                # Trained model weights
-├── results/                    # Predictions and evaluation outputs
-├── assets/                     # README figures
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
 ## Environment
 
 Install dependencies with:
@@ -100,50 +77,22 @@ results/
 |DM-Count|10.43|18.34|
 |**SapFruitNet**|**7.50**|**12.57**|
 
-## Recommended `.gitignore`
+## Dataset and Pretrained Model
 
-```gitignore
-.idea/
-.cache/
-\_\_pycache\_\_/
-\*.pyc
+The dataset and the best-performing SapFruitNet model checkpoint used in this study are available at the following links.
 
-checkpoints/
-results/
-output/
-vis/
+### Dataset
 
-\*.pth
-\*.pt
-```
+The dataset used for model training and evaluation can be downloaded from:
 
-## Code Attribution
+- **Baidu Netdisk:** https://pan.baidu.com/s/1Z4eh_S5AkJruwMEQR7IpWQ
+- **Extraction code:** `94de`
 
-This implementation was developed for UAV-based *S. mukorossi* fruit counting and includes project-specific modifications to the data-processing, training, inference, and evaluation workflow.
+### Pretrained Model
 
-If parts of the implementation were adapted from an existing open-source crowd-counting repository, acknowledge the original repository, associated publication, and software license here. Retain all copyright or license notices required by the original license.
+The best-performing SapFruitNet checkpoint (`best_model_mae-7.50_epoch-1776.pth`) can be downloaded from:
 
-Example:
+- **Baidu Netdisk:** https://pan.baidu.com/s/1ZqwM0Icov_5SCHbCCneqFw
+- **Extraction code:** `w79r`
 
-```text
-Parts of this implementation were adapted from \[Original Project/Repository].
-We thank the original authors for releasing their code.
-```
-
-Replace the placeholder with the exact project name, repository link, citation, and license information before public release.
-
-## Citation
-
-```bibtex
-@article{SapFruitNet,
-  title   = {Dynamic estimation of individual Sapindus mukorossi Gaertn. fruit counts using multi-temporal drone imagery and deep learning},
-  author  = {Shao, Wenhao and others},
-  journal = {To be updated},
-  year    = {To be updated}
-}
-```
-
-## License
-
-Add a `LICENSE` file that is compatible with any upstream code used in this repository. If the implementation contains adapted third-party code, follow the attribution and redistribution requirements of the corresponding license.
-
+The pretrained model can be used for model evaluation and fruit-density-map prediction following the instructions provided in the Testing section.
