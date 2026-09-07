@@ -1,40 +1,149 @@
-# SapFruitNet: Simplifying and Improving Crowd Counting with Transformer(Code reproduction)
-* Code reproduction
+# SapFruitNet
+
+Official implementation accompanying the manuscript:
+
+**Dynamic estimation of individual *Sapindus mukorossi* Gaertn. fruit counts using multi-temporal drone imagery and deep learning**
 
 ## Overview
-* Presentate only the experiment on dataset ShanghaiTech Part A 
-* ShanghaiTech Part A 
 
-| Code      | MAE   | MSE      |
-|-----------|-------|-------|
-| PAPER     | 54.8  | 86.6  |
-| This code | 54.20 | 88.97 |
+SapFruitNet is a density-regression-based deep learning framework developed for fruit counting in individual *Sapindus mukorossi* trees from UAV RGB imagery under complex field conditions. The workflow covers UAV image preprocessing, density-map generation, model training, patch-based inference, quantitative evaluation, and density-map visualization.
 
-Our code reaches this result with the standard hyperparameter set in code. Trained with batch-size=8 for around 2000 epoch(as said in the paper). Best validation at around epoch 1700
-# code framework
+## Main Features
 
-# Training
-Take a look at the arguments accepted by ```train.py```
-* update root "data-dir" in ./train.py.
-* load pretrained weights of ImageNet-1k in ./Networks/ALTGVT.py.
-* pretrained weights 
-* [new] Added [wandb](https://wandb.ai/) integration. If you want to log with wandb, set ```--wandb 1``` in ```train.py``` after having logged in to wandb (```wandb login``` in console)
-* launch with ```python train.py```
+* UAV-based fruit counting under heterogeneous forest-canopy backgrounds.
+* Density-regression-based estimation for small, clustered, and partially occluded fruits.
+* Patch-based inference for high-resolution UAV images.
+* Visualization of predicted and ground-truth density maps.
+* Reproducible training and evaluation scripts.
 
-# Testing
-* python test_image_patch.py
-* Due to crop training with size of 256x256, the validation image is divided into several patches with size of 256x256, and the overlapping area is averaged.
-* The pretrained model best_model_mae-7.50_epoch-1776
-# Visualization
-* python vis_densityMap.py
-* save to ./vis/part_A_final
+## Recommended Repository Structure
 
+```text
+SapFruitNet/
+├── sapfruitnet/
+│   ├── models/                 # Network architectures and model components
+│   ├── losses/                 # Loss functions
+│   └── utils/                  # Common utilities
+├── data\_processing/
+│   ├── preprocessing/          # Dataset preprocessing scripts
+│   └── density\_maps/           # Density-map generation utilities
+├── scripts/
+│   ├── train.py                # Model training
+│   ├── test.py                 # Model evaluation / patch-based inference
+│   └── visualize\_density.py    # Density-map visualization
+├── checkpoints/                # Trained model weights
+├── results/                    # Predictions and evaluation outputs
+├── assets/                     # README figures
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
 
-*Download address of the original data set（https://pan.baidu.com/s/1Z4eh_S5AkJruwMEQR7IpWQ 提取码: 94de）
-*SapFruitNet's best model link: https://pan.baidu.com/s/1ZqwM0Icov_5SCHbCCneqFw  提取码:w79r
+## Environment
 
-# Environment
-	See requirements.txt
-	
+Install dependencies with:
 
+```bash
+pip install -r requirements.txt
+```
+
+## Dataset Preparation
+
+The dataset used in this study consists of UAV RGB images of *S. mukorossi* trees acquired under different phenological stages, imaging scales, fruit densities, illumination conditions, and canopy backgrounds.
+
+Before training:
+
+1. Prepare the original UAV images and point annotations.
+2. Generate the corresponding ground-truth density maps.
+3. Split the dataset into training, validation, and test subsets at the original-image level.
+4. Apply data augmentation only to the training subset.
+5. Update dataset paths in the training and testing scripts.
+
+## Training
+
+```bash
+python scripts/train.py
+```
+
+Best checkpoint used in the manuscript:
+
+```text
+best\_model\_mae-7.50\_epoch-1776.pth
+```
+
+## Testing
+
+```bash
+python scripts/test.py
+```
+
+For high-resolution UAV images, patch-based inference can be used to obtain final density maps and fruit-count estimates.
+
+## Visualization
+
+```bash
+python scripts/visualize\_density.py
+```
+
+Save visual outputs under:
+
+```text
+results/
+```
+
+## Experimental Results
+
+|Method|MAE|RMSE|
+|-|-:|-:|
+|CAN|26.75|37.77|
+|CSRNet|16.94|23.82|
+|DM-Count|10.43|18.34|
+|**SapFruitNet**|**7.50**|**12.57**|
+
+## Recommended `.gitignore`
+
+```gitignore
+.idea/
+.cache/
+\_\_pycache\_\_/
+\*.pyc
+
+checkpoints/
+results/
+output/
+vis/
+
+\*.pth
+\*.pt
+```
+
+## Code Attribution
+
+This implementation was developed for UAV-based *S. mukorossi* fruit counting and includes project-specific modifications to the data-processing, training, inference, and evaluation workflow.
+
+If parts of the implementation were adapted from an existing open-source crowd-counting repository, acknowledge the original repository, associated publication, and software license here. Retain all copyright or license notices required by the original license.
+
+Example:
+
+```text
+Parts of this implementation were adapted from \[Original Project/Repository].
+We thank the original authors for releasing their code.
+```
+
+Replace the placeholder with the exact project name, repository link, citation, and license information before public release.
+
+## Citation
+
+```bibtex
+@article{SapFruitNet,
+  title   = {Dynamic estimation of individual Sapindus mukorossi Gaertn. fruit counts using multi-temporal drone imagery and deep learning},
+  author  = {Shao, Wenhao and others},
+  journal = {To be updated},
+  year    = {To be updated}
+}
+```
+
+## License
+
+Add a `LICENSE` file that is compatible with any upstream code used in this repository. If the implementation contains adapted third-party code, follow the attribution and redistribution requirements of the corresponding license.
 
